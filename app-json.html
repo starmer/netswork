@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<script src="javascript/joint/raphael-min.js" type="text/javascript"></script>
+<script src="javascript/joint/joint-min.js" type="text/javascript"></script>
+<script src="javascript/joint/joint.dia-min.js" type="text/javascript"></script>
+<script src="javascript/joint/joint.dia.fsa-min.js" type="text/javascript"></script>
+<script src="javascript/joint/joint.dia.serializer.js" type="text/javascript"></script>
+<script src="javascript/joint/joint.arrow.js" type="text/javascript"></script>
+
+<style type="text/css">
+body {
+  background-color: #161c1c
+}
+#world {
+  background-color: white;
+  margin: 0 auto 0 auto;
+  width: 640px;
+  height: 380px;
+  border: 3px solid gray;
+  border-radius: 30px;
+}
+</style>
+
+<title>NetsWork</title>
+</head>
+
+<body>
+<div id="world"></div>
+<script type="text/javascript">
+
+//Joint.dia.registeredJoints()[0].compact()
+//console.log(Joint.dia.stringify(Joint.paper())); 
+
+Joint.paper("world", 640, 380);
+myJSONstring = '[{"dx":253,"dy":-102,"rot":0,"sx":1,"sy":1,"module":"fsa","object":"State","position":{"x":275,"y":175},"radius":30,"label":"state 3","labelOffsetX":15,"labelOffsetY":23,"attrs":{"fill":"white"},"euid":2},{"dx":280,"dy":228,"rot":0,"sx":1,"sy":1,"module":"fsa","object":"State","position":{"x":250,"y":100},"radius":30,"label":"state 2","labelOffsetX":15,"labelOffsetY":23,"attrs":{"fill":"white"},"euid":3},{"dx":0,"dy":0,"rot":0,"sx":1,"sy":1,"module":"fsa","object":"State","position":{"x":120,"y":70},"radius":30,"label":"state 1","labelOffsetX":15,"labelOffsetY":23,"attrs":{"fill":"white"},"euid":4},{"object":"joint","euid":5,"opt":{"vertices":[],"attrs":{"stroke":"#000","fill-opacity":0,"stroke-width":1,"stroke-dasharray":"none","stroke-linecap":"round","stroke-linejoin":"round","stroke-miterlimit":1,"stroke-opacity":1},"cursor":"move","beSmooth":false,"interactive":true,"labelAttrs":{"font-size":12,"fill":"#000"},"labelBoxAttrs":{"stroke":"white","fill":"white"},"bboxCorrection":{"start":{"type":null,"x":0,"y":0,"width":0,"height":0},"end":{"type":null,"x":0,"y":0,"width":0,"height":0}},"dummy":{"start":{"radius":1,"attrs":{"opacity":0,"fill":"red"}},"end":{"radius":1,"attrs":{"opacity":0,"fill":"yellow"}}},"handle":{"timeout":2000,"start":{"enabled":false,"radius":4,"attrs":{"opacity":1,"fill":"red","stroke":"black"}},"end":{"enabled":false,"radius":4,"attrs":{"opacity":1,"fill":"red","stroke":"black"}}},"arrow":{"start":{"path":["M","2","0","L","-2","0"],"dx":2,"dy":2,"attrs":{}},"end":{"path":["M","5","0","L","-5","-5","L","-5","5","z"],"dx":5,"dy":5,"attrs":{"stroke":"black","fill":"black"}}}},"from":3,"to":2,"registered":{"start":[],"end":[],"both":[2,3,4]}},{"object":"joint","euid":6,"opt":{"vertices":[],"attrs":{"stroke":"#000","fill-opacity":0,"stroke-width":1,"stroke-dasharray":"none","stroke-linecap":"round","stroke-linejoin":"round","stroke-miterlimit":1,"stroke-opacity":1},"cursor":"move","beSmooth":false,"interactive":true,"labelAttrs":{"font-size":12,"fill":"#000"},"labelBoxAttrs":{"stroke":"white","fill":"white"},"bboxCorrection":{"start":{"type":null,"x":0,"y":0,"width":0,"height":0},"end":{"type":null,"x":0,"y":0,"width":0,"height":0}},"dummy":{"start":{"radius":1,"attrs":{"opacity":0,"fill":"red"}},"end":{"radius":1,"attrs":{"opacity":0,"fill":"yellow"}}},"handle":{"timeout":2000,"start":{"enabled":false,"radius":4,"attrs":{"opacity":1,"fill":"red","stroke":"black"}},"end":{"enabled":false,"radius":4,"attrs":{"opacity":1,"fill":"red","stroke":"black"}}},"arrow":{"start":{"path":["M","2","0","L","-2","0"],"dx":2,"dy":2,"attrs":{}},"end":{"path":["M","5","0","L","-5","-5","L","-5","5","z"],"dx":5,"dy":5,"attrs":{"stroke":"black","fill":"black"}}}},"from":4,"to":3,"registered":{"start":[],"end":[],"both":[2,3,4]}}]';
+Joint.dia.parse(myJSONstring);
+
+</script>
+</body>
+</html>
+
