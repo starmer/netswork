@@ -101,7 +101,7 @@ Joint.Mixin(Joint.dia, /** @lends Joint.dia */ {
 	    // translate, @todo rotate, scale
 	    element.translate(o.dx, o.dy);
 	    // element.rotate(o.rot);
-	    element.scale(o.sx, o.sy);
+	    // element.scale(o.sx, o.sy);
 	    objects.push(element);
 	}
 	this.hierarchize(elements);

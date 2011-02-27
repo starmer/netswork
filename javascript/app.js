@@ -8,26 +8,12 @@ dojo.addOnLoad(
 	    opacity: .5
 	});
 	
-	var start = function () {
-	    // storing original coordinates
-	    this.ox = this.attr("cx");
-	    this.oy = this.attr("cy");
-	    this.attr({opacity: 1});
-	},
-	move = function (dx, dy) {
-	    // move will be called with dx and dy
-	    this.attr({cx: this.ox + dx, cy: this.oy + dy});
-	},
-	up = function () {
-	    // restoring state
-	    this.attr({opacity: .5});
-	};
-//	cloud.drag(move, start, up);
+
 	
 	cloud.translate(-210,-150);
 	cloud.scale(.25,.25);
 	
-	var network = NW.dia.network;
+	var network = Joint.dia.network;
 	Joint.paper("diagram", '100%', 600);
 	console.log(Joint.dia.registeredJoints().length);
 
@@ -60,5 +46,5 @@ dojo.addOnLoad(
 
 	console.log(Joint.dia.registeredJoints().length);
 
-	//Joint.dia.stringify(Joint.paper()); 
+	console.log(Joint.dia.stringify(Joint.paper())); 
 });
