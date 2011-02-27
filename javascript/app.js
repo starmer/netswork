@@ -41,8 +41,8 @@ dojo.addOnLoad(
 	var all = [s1, s2, s3];
 
 	s1.joint(s2, NW.line).register(all);
-
-	var myJoint = Joint({x: 100, y: 100}, {x: 200, y: 200}, NW.line).registerForever(all);
+	
+	s3.joint({x:300,y:300}, NW.line);
 
 	console.log(Joint.dia.registeredJoints().length);
 
