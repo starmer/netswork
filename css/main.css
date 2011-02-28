@@ -73,11 +73,11 @@ body {
   }
   a.btn-download:hover .icon, {background-position:-40px -25px;}
 
-#line-btn .icon {
+#btn-line .icon {
     background-position: 0 0;
     width: 16px;
 }
 
-#line-btn:hover .icon {
+#btn-line:hover .icon {
     background-position: 0 -25px;
 }
