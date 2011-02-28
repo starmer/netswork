@@ -122,15 +122,15 @@ arrows.rect = function(size){
 arrows.square = function(size){
     if (!size) { size = 5; }
     return {
-	path: ["M",(1.25*size).toString(),(1.25*size).toString(),
-               "L",(-1.25*size).toString(),(1.25*size).toString(),
-               "L",(-1.25*size).toString(),(-1.25*size).toString(),
-               "L", (1.25*size).toString(), (-1.25*size).toString(), "z"],
-	dx: 1.25*size, 
-	dy: 1.25*size,
+	path: ["M",(1.1*size).toString(),(1.1*size).toString(),
+               "L",(-1.1*size).toString(),(1.1*size).toString(),
+               "L",(-1.1*size).toString(),(-1.1*size).toString(),
+               "L", (1.1*size).toString(), (-1.1*size).toString(), "z"],
+	dx: 1.1*size, 
+	dy: 1.1*size,
 	attrs: { 
 	    stroke: "black",
-	    fill: "white",             
+	    fill: "black",             
 	    "stroke-width": 1.0
 	}
     };
