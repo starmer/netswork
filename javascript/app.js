@@ -36,6 +36,9 @@ dojo.addOnLoad(
 	s1.joint(s2, NW.line).register(all);
 	
 	s3.joint({x:300,y:300}, NW.line).register(all);
+	
+	var myJoint = Joint({x: 100, y: 100}, {x: 200, y: 200}, NW.line).register(all);
+Joint.dia.registerJoint(myJoint);
 
 	console.log(Joint.dia.registeredJoints().length);
 
