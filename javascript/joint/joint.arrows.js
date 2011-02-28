@@ -113,4 +113,27 @@ arrows.rect = function(size){
     };
 };
 
+
+/**
+ * Rectangle arrow.
+ * @name Joint.arrows.rect
+ * @memberOf Joint.arrows
+ */
+arrows.square = function(size){
+    if (!size) { size = 5; }
+    return {
+	path: ["M",(1.25*size).toString(),(1.25*size).toString(),
+               "L",(-1.25*size).toString(),(1.25*size).toString(),
+               "L",(-1.25*size).toString(),(-1.25*size).toString(),
+               "L", (1.25*size).toString(), (-1.25*size).toString(), "z"],
+	dx: 1.25*size, 
+	dy: 1.25*size,
+	attrs: { 
+	    stroke: "black",
+	    fill: "white",             
+	    "stroke-width": 1.0
+	}
+    };
+};
+
 })(this);

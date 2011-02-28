@@ -1,8 +1,8 @@
 var NW = NW || {};
 
 NW.line = {
-  endArrow: { type: "none" },
-  startArrow: {type: "none"},
+  endArrow: { type: "square" },
+  startArrow: {type: "square"},
   attrs: { "stroke-dasharray": "none" }
 };
 	
