@@ -42,6 +42,7 @@ body {
     overflow:visible;
     cursor:pointer;
     text-decoration:none;
+	margin-right:5px;
   }
   
   a.minibutton>span {

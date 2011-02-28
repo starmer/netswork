@@ -1,9 +1,16 @@
 dojo.addOnLoad(
   function(){
 	
-	$('#btn-line').bind('click', function(){
+	$('#btn-line').bind('click', function(e){
 		var newJoint = Joint({x: 50, y: 100}, {x: 100, y: 50}, NW.line).register(all);
 		Joint.dia.registerJoint(newJoint);
+		e.preventDefault();
+	});
+	
+	$('#btn-save').bind('click', function(e){
+		alert(Joint.dia.stringify(Joint.paper()));
+		console.log(Joint.dia.stringify(Joint.paper()));
+		e.preventDefault();	
 	});
 	
 	var palette = Raphael("palette", 200, 200);
@@ -45,5 +52,4 @@ dojo.addOnLoad(
 
 	console.log(Joint.dia.registeredJoints().length);
 
-	console.log(Joint.dia.stringify(Joint.paper())); 
 });
