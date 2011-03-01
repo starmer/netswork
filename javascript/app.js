@@ -40,6 +40,7 @@ dojo.addOnLoad(
 	var network = Joint.dia.network;
 	Joint.paper("diagram", '100%', 600);
 
+/*
 	var s1 = network.cloud.create({
 	  position: {x: 120, y: 70},
 	  label: "Internet"
@@ -60,6 +61,6 @@ dojo.addOnLoad(
 	s1.joint(s2, NW.line).register(NW.objects);
 	
 	s3.joint({x:300,y:300}, NW.line).register(NW.objects);
-
+*/
 
 });
