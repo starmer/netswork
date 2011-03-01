@@ -27,14 +27,18 @@ body {
 }
 
 /* Dragable objects */
-.obj span{
-	left: 21px;
-    position: relative;
-    top: 33px;
-}
-#obj-cloud{
+.obj{
 	width:75px;
 	height:75px;
+}
+
+.obj div{
+    position: relative;
+    top: 33px;
+	text-align:center;
+}
+
+.cloud{
 	background:url(../images/cloud.png) no-repeat;
 }
 

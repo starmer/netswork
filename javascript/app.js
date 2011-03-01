@@ -2,6 +2,24 @@ dojo.addOnLoad(
   function(){
 	
 	NW.objects = [];
+	NW.registerJoints = function(){
+		var joints = Joint.dia.registeredJoints();
+		for(var i = 0; i < joints.length; i++){
+			var joint = joints[i];
+			joint.register(NW.objects);
+		}
+	}
+	
+	NW.createCloud = function(label, position){
+		var cloud = network.cloud.create({
+		  position: position,
+		  label: label
+		});
+		
+		NW.objects.push(cloud);
+		
+		NW.registerJoints();
+	}
 	
 	$("#obj-line").draggable({
 		revert: true,
@@ -21,25 +39,23 @@ dojo.addOnLoad(
 		e.preventDefault();	
 	});
 	
-	$("#obj-cloud").draggable({
+	$("#obj-internet").draggable({
 		revert: true,
-		revertDuration: 100,
+		revertDuration: 0,
 		stop: function(event, ui) {
 			var newX = ui.position.left - $('#diagram').offset().left;
 			var newY = ui.position.top - $('#diagram').offset().top + 30;
-			
-			var cloud = network.cloud.create({
-			  position: {x: newX, y:newY},
-			  label: "Internet"
-			});
-			
-			NW.objects.push(cloud);
-			
-			var joints = Joint.dia.registeredJoints();
-			for(var i = 0; i < joints.length; i++){
-				var joint = joints[i];
-				joint.register(NW.objects);
-			}
+			NW.createCloud("Internet", {x: newX, y: newY});
+		}
+	});
+	
+	$("#obj-vpn").draggable({
+		revert: true,
+		revertDuration: 0,
+		stop: function(event, ui) {
+			var newX = ui.position.left - $('#diagram').offset().left;
+			var newY = ui.position.top - $('#diagram').offset().top + 100;
+			NW.createCloud("VPN", {x: newX, y: newY});
 		}
 	});
 	
