@@ -11,7 +11,7 @@ body {
 #palette {
 	position:absolute;
 	float:left;
-	width:200px;
+	width:80px;
 	height:580px;
 	border-right:0;
 	background-color:white;
@@ -22,7 +22,7 @@ body {
 #diagram {
 	background-image:none;
 	background-color:white;
-	margin-left:210px;
+	margin-left:90px;
 	height:590px;
 }
 
@@ -31,6 +31,12 @@ body {
 	width:75px;
 	height:75px;
 	background:url(../images/cloud.png) no-repeat;
+}
+
+#obj-line{
+	width:75px;
+	height:75px;
+	background:url(../images/line.png) no-repeat;
 }
 
 /* Buttons */

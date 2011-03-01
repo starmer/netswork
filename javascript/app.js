@@ -3,10 +3,16 @@ dojo.addOnLoad(
 	
 	NW.objects = [];
 	
-	$('#btn-line').bind('click', function(e){
-		var newJoint = Joint({x: 50, y: 100}, {x: 100, y: 50}, NW.line).register(NW.objects);
-		Joint.dia.registerJoint(newJoint);
-		e.preventDefault();
+	$("#obj-line").draggable({
+		revert: true,
+		revertDuration: 100,
+		stop: function(event, ui) {
+			var newX = ui.position.left - $('#diagram').offset().left + 30;
+			var newY = ui.position.top - $('#diagram').offset().top + 180;
+			
+			var newJoint = Joint({x: newX, y: newY}, {x: newX + 50, y: newY - 50}, NW.line).register(NW.objects);
+			Joint.dia.registerJoint(newJoint);
+		}
 	});
 	
 	$('#btn-save').bind('click', function(e){
