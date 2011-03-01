@@ -26,6 +26,13 @@ body {
 	height:590px;
 }
 
+/* Dragable objects */
+#obj-cloud{
+	width:75px;
+	height:75px;
+	background:url(../images/cloud.png) no-repeat;
+}
+
 /* Buttons */
 /* button basics */
   a.minibutton {
