@@ -180,7 +180,7 @@ network.circle = Element.extend({
 		var p = Joint.DeepSupplement(this.properties, properties, {
 	            position: point(0,0),
 	            radius: 12,
-				attrs: { 'stroke-width': 5 }
+				attrs: { 'stroke-width': 5, fill:'white' }
 				
 	        });
 
