@@ -59,6 +59,23 @@ dojo.addOnLoad(
 		}
 	});
 	
+	$("#obj-security").draggable({
+		revert: true,
+		revertDuration: 0,
+		stop: function(event, ui) {
+			var newX = ui.position.left - $('#diagram').offset().left;
+			var newY = ui.position.top - $('#diagram').offset().top + 100;
+			var security = network.security.create({
+			  position: {x: newX, y: newY},
+			  label: "Security"
+			});
+
+			NW.objects.push(security);
+
+			NW.registerJoints();
+		}
+	});
+	
 	var network = Joint.dia.network;
 	Joint.paper("diagram", '100%', 600);
 

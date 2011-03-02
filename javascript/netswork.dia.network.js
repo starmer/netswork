@@ -55,4 +55,46 @@ network.cloud = Element.extend({
     }
 });
 
+/**
+var s1 = NW.dia.network.cloud.create({
+  position: {x: 120, y: 70},
+  label: "state 1",
+  radius: 40,
+  attrs: {
+    stroke: "blue",
+    fill: "yellow"
+  }
+});
+ */
+network.security = Element.extend({
+    object: "security",
+    module: "network",
+    init: function(properties){
+		var x = properties.position.x || 0;
+		var y = properties.position.y || 0;
+	
+		// options
+		var p = Joint.DeepSupplement(this.properties, properties, {
+	            position: point(0,0),
+	            radius: 30,
+	            label: 'firewall',
+	            labelOffsetX: 30/2 + 15,
+	            labelOffsetY: 30/2 + 10
+	        });
+
+			this.setWrapper(this.paper.image("images/wall.png", 0, 0, 100, 100).attr(p.attrs).translate(x,y));
+		
+		// inner
+		this.addInner(this.getLabelElement());
+    },
+    getLabelElement: function(){
+		var p = this.properties,
+		bb = this.wrapper.getBBox(),
+		t = this.paper.text(bb.x, bb.y, p.label),
+		tbb = t.getBBox();
+		t.translate(bb.x - tbb.x + p.labelOffsetX, bb.y - tbb.y + p.labelOffsetY);
+		return t;
+    }
+});
+
 })(this);	// END CLOSURE
