@@ -21,18 +21,6 @@ dojo.addOnLoad(
 		NW.registerJoints();
 	}
 	
-	$("#obj-line").draggable({
-		revert: true,
-		revertDuration: 100,
-		stop: function(event, ui) {
-			var newX = ui.position.left - $('#diagram').offset().left + 30;
-			var newY = ui.position.top - $('#diagram').offset().top + 180;
-			
-			var newJoint = Joint({x: newX, y: newY}, {x: newX + 50, y: newY - 50}, NW.line).register(NW.objects);
-			Joint.dia.registerJoint(newJoint);
-		}
-	});
-	
 	$('#btn-save').bind('click', function(e){
 		alert(Joint.dia.stringify(Joint.paper()));
 		console.log(Joint.dia.stringify(Joint.paper()));
@@ -64,7 +52,7 @@ dojo.addOnLoad(
 		revertDuration: 0,
 		stop: function(event, ui) {
 			var newX = ui.position.left - $('#diagram').offset().left;
-			var newY = ui.position.top - $('#diagram').offset().top + 100;
+			var newY = ui.position.top - $('#diagram').offset().top + 180;
 			var security = network.security.create({
 			  position: {x: newX, y: newY},
 			  label: "Security"
@@ -73,6 +61,20 @@ dojo.addOnLoad(
 			NW.objects.push(security);
 
 			NW.registerJoints();
+		}
+	});
+	
+	
+	$("#obj-line").draggable({
+		revert: true,
+		revertDuration: 0,
+		stop: function(event, ui) {
+			console.log("offset: ", $('#diagram').offset(), ' event: ', event, 'ui: ', ui);
+			var newX = ui.position.left - $('#diagram').offset().left + 30;
+			var newY = ui.position.top - $('#diagram').offset().top + 330;
+			
+			var newJoint = Joint({x: newX, y: newY}, {x: newX + 50, y: newY - 50}, NW.line).register(NW.objects);
+			Joint.dia.registerJoint(newJoint);
 		}
 	});
 	

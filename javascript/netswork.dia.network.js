@@ -79,7 +79,8 @@ network.security = Element.extend({
 	            radius: 30,
 	            label: 'firewall',
 	            labelOffsetX: 30/2 + 15,
-	            labelOffsetY: 30/2 + 10
+	            labelOffsetY: 30/2 + 28,
+				labelAttrs: {color:'red'}
 	        });
 
 			this.setWrapper(this.paper.image("images/wall.png", 0, 0, 100, 100).attr(p.attrs).translate(x,y));

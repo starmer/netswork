@@ -46,6 +46,11 @@ body {
 	background:url(../images/wall-icon.png) no-repeat;
 }
 
+#obj-security div span{
+	padding:2px;
+	background-color:white;
+}
+
 #obj-line{
 	background:url(../images/line.png) no-repeat;
 }
