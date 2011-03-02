@@ -84,7 +84,7 @@ dojo.addOnLoad(
 		revertDuration: 0,
 		stop: function(event, ui) {
 			var newX = ui.position.left - $('#diagram').offset().left;
-			var newY = ui.position.top - $('#diagram').offset().top + 390;
+			var newY = ui.position.top - $('#diagram').offset().top + 340;
 			var server = network.server.create({
 			  position: {x: newX, y: newY}
 			});
@@ -100,7 +100,7 @@ dojo.addOnLoad(
 		revertDuration: 0,
 		stop: function(event, ui) {
 			var newX = ui.position.left - $('#diagram').offset().left;
-			var newY = ui.position.top - $('#diagram').offset().top + 465;
+			var newY = ui.position.top - $('#diagram').offset().top + 425;
 			var multiServer = network.multiServer.create({
 			  position: {x: newX, y: newY}
 			});
@@ -116,8 +116,8 @@ dojo.addOnLoad(
 		revert: true,
 		revertDuration: 0,
 		stop: function(event, ui) {
-			var newX = ui.position.left - $('#diagram').offset().left + 30;
-			var newY = ui.position.top - $('#diagram').offset().top + 535;
+			var newX = ui.position.left - $('#diagram').offset().left + 20;
+			var newY = ui.position.top - $('#diagram').offset().top + 545;
 			
 			var newJoint = Joint({x: newX, y: newY}, {x: newX + 50, y: newY - 50}, NW.line).register(NW.objects);
 			Joint.dia.registerJoint(newJoint);
