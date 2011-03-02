@@ -47,12 +47,28 @@ body {
 }
 
 #obj-security div span{
-	padding:2px;
+	padding:3px;
 	background-color:white;
+}
+
+#obj-multi{
+	background:url(../images/multi-icon.png) no-repeat;
+}
+
+#obj-server{
+	background:url(../images/server-icon.png) no-repeat;
+}
+
+#obj-multi-server{
+	background:url(../images/multi-server-icon.png) no-repeat;
 }
 
 #obj-line{
 	background:url(../images/line.png) no-repeat;
+}
+
+#obj-circle{
+	background:url(../images/circle-icon.png) no-repeat;
 }
 
 /* Buttons */

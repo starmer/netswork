@@ -23,7 +23,6 @@ dojo.addOnLoad(
 	
 	$('#btn-save').bind('click', function(e){
 		alert(Joint.dia.stringify(Joint.paper()));
-		console.log(Joint.dia.stringify(Joint.paper()));
 		e.preventDefault();	
 	});
 	
@@ -64,44 +63,84 @@ dojo.addOnLoad(
 		}
 	});
 	
+	$("#obj-multi").draggable({
+		revert: true,
+		revertDuration: 0,
+		stop: function(event, ui) {
+			var newX = ui.position.left - $('#diagram').offset().left;
+			var newY = ui.position.top - $('#diagram').offset().top + 255;
+			var multi = network.multi.create({
+			  position: {x: newX, y: newY}
+			});
+
+			NW.objects.push(multi);
+
+			NW.registerJoints();
+		}
+	});
+	
+	$("#obj-server").draggable({
+		revert: true,
+		revertDuration: 0,
+		stop: function(event, ui) {
+			var newX = ui.position.left - $('#diagram').offset().left;
+			var newY = ui.position.top - $('#diagram').offset().top + 390;
+			var server = network.server.create({
+			  position: {x: newX, y: newY}
+			});
+
+			NW.objects.push(server);
+
+			NW.registerJoints();
+		}
+	});
+	
+	$("#obj-multi-server").draggable({
+		revert: true,
+		revertDuration: 0,
+		stop: function(event, ui) {
+			var newX = ui.position.left - $('#diagram').offset().left;
+			var newY = ui.position.top - $('#diagram').offset().top + 465;
+			var multiServer = network.multiServer.create({
+			  position: {x: newX, y: newY}
+			});
+
+			NW.objects.push(multiServer);
+
+			NW.registerJoints();
+		}
+	});
+	
 	
 	$("#obj-line").draggable({
 		revert: true,
 		revertDuration: 0,
 		stop: function(event, ui) {
-			console.log("offset: ", $('#diagram').offset(), ' event: ', event, 'ui: ', ui);
 			var newX = ui.position.left - $('#diagram').offset().left + 30;
-			var newY = ui.position.top - $('#diagram').offset().top + 330;
+			var newY = ui.position.top - $('#diagram').offset().top + 535;
 			
 			var newJoint = Joint({x: newX, y: newY}, {x: newX + 50, y: newY - 50}, NW.line).register(NW.objects);
 			Joint.dia.registerJoint(newJoint);
 		}
 	});
 	
+	$("#obj-circle").draggable({
+		revert: true,
+		revertDuration: 0,
+		stop: function(event, ui) {
+			var newX = ui.position.left - $('#diagram').offset().left + 40;
+			var newY = ui.position.top - $('#diagram').offset().top + 610;
+			var circle = network.circle.create({
+			  position: {x: newX, y: newY}
+			});
+
+			NW.objects.push(circle);
+
+			NW.registerJoints();
+		}
+	});
+	
 	var network = Joint.dia.network;
 	Joint.paper("diagram", '100%', 600);
-
-/*
-	var s1 = network.cloud.create({
-	  position: {x: 120, y: 70},
-	  label: "Internet"
-	});
-	
-	var s2 = network.cloud.create({
-	  position: {x: 250, y: 100},
-	  label: "Internet"
-	});
-	
-	var s3 = network.cloud.create({
-	  position: {x: 275, y: 175},
-	  label: "Internet"
-	});
-
-	NW.objects.push(s1, s2, s3);
-
-	s1.joint(s2, NW.line).register(NW.objects);
-	
-	s3.joint({x:300,y:300}, NW.line).register(NW.objects);
-*/
 
 });

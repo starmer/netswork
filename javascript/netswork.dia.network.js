@@ -55,17 +55,6 @@ network.cloud = Element.extend({
     }
 });
 
-/**
-var s1 = NW.dia.network.cloud.create({
-  position: {x: 120, y: 70},
-  label: "state 1",
-  radius: 40,
-  attrs: {
-    stroke: "blue",
-    fill: "yellow"
-  }
-});
- */
 network.security = Element.extend({
     object: "security",
     module: "network",
@@ -77,13 +66,125 @@ network.security = Element.extend({
 		var p = Joint.DeepSupplement(this.properties, properties, {
 	            position: point(0,0),
 	            radius: 30,
-	            label: 'firewall',
-	            labelOffsetX: 30/2 + 15,
-	            labelOffsetY: 30/2 + 28,
-				labelAttrs: {color:'red'}
+				labelOffsetX: 30/2 + 15,
+				labelOffsetY: 30/2 + 28
 	        });
 
 			this.setWrapper(this.paper.image("images/wall.png", 0, 0, 100, 100).attr(p.attrs).translate(x,y));
+		
+		// inner
+		this.addInner(this.getLabelElement());
+    },
+    getLabelElement: function(){
+		var p = this.properties,
+		bb = this.wrapper.getBBox(),
+		t = this.paper.text(bb.x, bb.y, p.label),
+		tbb = t.getBBox();
+		t.translate(bb.x - tbb.x + p.labelOffsetX, bb.y - tbb.y + p.labelOffsetY);
+		return t;
+    }
+});
+
+network.multi = Element.extend({
+    object: "multi",
+    module: "network",
+    init: function(properties){
+		var x = properties.position.x || 0;
+		var y = properties.position.y || 0;
+	
+		// options
+		var p = Joint.DeepSupplement(this.properties, properties, {
+	            position: point(0,0),
+	            radius: 30
+	        });
+
+			this.setWrapper(this.paper.image("images/multi.png", 0, 0, 100, 100).attr(p.attrs).translate(x,y));
+		
+		// inner
+		this.addInner(this.getLabelElement());
+    },
+    getLabelElement: function(){
+		var p = this.properties,
+		bb = this.wrapper.getBBox(),
+		t = this.paper.text(bb.x, bb.y, p.label),
+		tbb = t.getBBox();
+		t.translate(bb.x - tbb.x + p.labelOffsetX, bb.y - tbb.y + p.labelOffsetY);
+		return t;
+    }
+});
+
+network.server = Element.extend({
+    object: "server",
+    module: "network",
+    init: function(properties){
+		var x = properties.position.x || 0;
+		var y = properties.position.y || 0;
+	
+		// options
+		var p = Joint.DeepSupplement(this.properties, properties, {
+	            position: point(0,0),
+	            radius: 30
+	        });
+
+			this.setWrapper(this.paper.image("images/server.png", 0, 0, 100, 100).attr(p.attrs).translate(x,y));
+		
+		// inner
+		this.addInner(this.getLabelElement());
+    },
+    getLabelElement: function(){
+		var p = this.properties,
+		bb = this.wrapper.getBBox(),
+		t = this.paper.text(bb.x, bb.y, p.label),
+		tbb = t.getBBox();
+		t.translate(bb.x - tbb.x + p.labelOffsetX, bb.y - tbb.y + p.labelOffsetY);
+		return t;
+    }
+});
+
+network.multiServer = Element.extend({
+    object: "multiServer",
+    module: "network",
+    init: function(properties){
+		var x = properties.position.x || 0;
+		var y = properties.position.y || 0;
+	
+		// options
+		var p = Joint.DeepSupplement(this.properties, properties, {
+	            position: point(0,0),
+	            radius: 30
+	        });
+
+			this.setWrapper(this.paper.image("images/multi-server.png", 0, 0, 100, 100).attr(p.attrs).translate(x,y));
+		
+		// inner
+		this.addInner(this.getLabelElement());
+    },
+    getLabelElement: function(){
+		var p = this.properties,
+		bb = this.wrapper.getBBox(),
+		t = this.paper.text(bb.x, bb.y, p.label),
+		tbb = t.getBBox();
+		t.translate(bb.x - tbb.x + p.labelOffsetX, bb.y - tbb.y + p.labelOffsetY);
+		return t;
+    }
+});
+
+network.circle = Element.extend({
+    object: "circle",
+    module: "network",
+    init: function(properties){
+		var x = properties.position.x || 0;
+		var y = properties.position.y || 0;
+	
+		// options
+		var p = Joint.DeepSupplement(this.properties, properties, {
+	            position: point(0,0),
+	            radius: 12,
+				attrs: { 'stroke-width': 5 }
+				
+	        });
+
+			this.setWrapper(this.paper.circle(p.position.x, p.position.y, p.radius).attr(p.attrs));
 		
 		// inner
 		this.addInner(this.getLabelElement());
