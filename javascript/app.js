@@ -26,6 +26,15 @@ dojo.addOnLoad(
 		e.preventDefault();	
 	});
 	
+	$('#btn-clear').bind('click', function(e){
+		var shouldClear = confirm("Clear the current diagram?");
+		if(shouldClear){
+			Joint.resetPaper();
+		}
+		e.preventDefault();	
+	});
+	
+	
 	$("#obj-internet").draggable({
 		revert: true,
 		revertDuration: 0,

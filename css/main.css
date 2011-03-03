@@ -3,6 +3,11 @@ body {
 	margin:0;
 }
 
+a {
+  outline: none;
+}
+
+
 #toolbar{
 	padding:10px;
 	border-bottom:1px solid #CCCCCC;
