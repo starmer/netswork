@@ -110,7 +110,6 @@ a {
     background-position:0 -30px;
   }
   a.minibutton:hover>span {background-position:100% -30px;}
-  
   a.minibutton.mousedown{background-position:0 -60px; }
   a.minibutton.mousedown>span{background-position:100% -60px; }
   
