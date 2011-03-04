@@ -2,6 +2,7 @@ dojo.addOnLoad(
   function(){
 	
 	NW.objects = [];
+	
 	NW.registerJoints = function(){
 		var joints = Joint.dia.registeredJoints();
 		for(var i = 0; i < joints.length; i++){
@@ -20,6 +21,22 @@ dojo.addOnLoad(
 		
 		NW.registerJoints();
 	}
+	
+	$(document).keypress(function(e) {
+	    if(e.which == 8){
+			if(NW.currentJointElement){
+				for(var i = 0; i < NW.objects.length; i++){
+					if(NW.objects[i] === NW.currentJointElement){
+						NW.objects.remove(i);
+					}
+				}
+				NW.currentJointElement.remove();
+				NW.currentJointElement = null;
+			}
+			e.preventDefault();
+		}
+	});
+	
 	
 	$('#btn-save').bind('click', function(e){
 		alert(Joint.dia.stringify(Joint.paper()));
