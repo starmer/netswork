@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @diagram.title %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%= @diagram.content %>
+</p>
+
+<p>
+  <b>Cookie:</b>
+  <%= @diagram.cookie %>
+</p>
+
+
+<%= link_to 'Edit', edit_diagram_path(@diagram) %> |
+<%= link_to 'Back', diagrams_path %>
