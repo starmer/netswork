@@ -43,14 +43,21 @@ dojo.addOnLoad(
 		console.log("data:", data);
 	}
 
-	$.ajax({
-	  url: 'http://radiant-wind-119.heroku.com/diagrams/1.json',
-	  dataType: 'jsonp',
-	  success: receivedForm
-	});
+
 	
 	$('#btn-save').bind('click', function(e){
-		//alert(Joint.dia.stringify(Joint.paper()));
+		var diagram = Joint.dia.stringify(Joint.paper());
+		console.log('here we go');
+		$.ajax({
+		 // url: 'http://radiant-wind-119.heroku.com/diagrams/1.json',
+			url: 'http://localhost:3000/diagrams/create.json',
+			dataType: 'jsonp',
+			data: {'diagram[title]':'this is a title','diagram[content]':diagram, 'diagram[cookie]':'this is the cookie that allows a user to see this diagram 123jf398j4f198j23f8'},
+			success: receivedForm
+		});
+		
+		console.log('ajax request sent.');
+		
 		e.preventDefault();	
 	});
 	

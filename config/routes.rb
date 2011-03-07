@@ -1,5 +1,13 @@
 Netswork::Application.routes.draw do
-  resources :diagrams
+  #resources :diagrams
+  
+  scope "/admin" do
+    resources :diagrams
+  end
+  
+  match 'diagrams/show/:id' => 'diagrams#show'
+  match 'diagrams/create' => 'diagrams#create'
+  match 'diagrams/update' => 'diagrams#udpate'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
