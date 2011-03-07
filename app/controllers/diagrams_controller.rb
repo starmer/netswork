@@ -14,11 +14,13 @@ class DiagramsController < ApplicationController
   # GET /diagrams/1.xml
   def show
     @diagram = Diagram.find(params[:id])
-    body = render_to_string(:locals => {:diagram => @diagram})
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @diagram }
-      render :json => "{ \"html\" :  \"#{to_json_value(body)}\"}", :callback => params[:callback]
+      format.json do
+        body = render_to_string(:locals => {:diagram => @diagram})
+        render :json => "{ \"html\" : \"#{to_json_value(body)}\"}", :callback => params[:callback]
+      end
     end
   end
 
