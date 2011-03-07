@@ -2,6 +2,8 @@ dojo.addOnLoad(
   function(){
 	
 	NW.objects = [];
+	//NW.baseURL = 'http://radiant-wind-119.heroku.com/';
+	NW.baseURL = 'http://localhost:3000/';
 	
 	NW.registerJoints = function(){
 		var joints = Joint.dia.registeredJoints();
@@ -49,8 +51,8 @@ dojo.addOnLoad(
 		var diagram = Joint.dia.stringify(Joint.paper());
 		console.log('here we go');
 		$.ajax({
-		 // url: 'http://radiant-wind-119.heroku.com/diagrams/1.json',
-			url: 'http://localhost:3000/diagrams/create.json',
+		 // url: 'diagrams/1.json',
+			url: NW.baseURL + 'diagrams/create.json',
 			dataType: 'jsonp',
 			data: {'diagram[title]':'this is a title','diagram[content]':diagram, 'diagram[cookie]':'this is the cookie that allows a user to see this diagram 123jf398j4f198j23f8'},
 			success: receivedForm
