@@ -31,6 +31,19 @@ a {
 	height:590px;
 }
 
+#open-modal{
+	padding-top:40px;
+	text-align:center;
+}
+
+#open-modal .row{
+	margin-bottom:10px;
+}
+
+#open-modal label{
+	margin-right:10px;
+}
+
 /* Dragable objects */
 .obj{
 	width:75px;
