@@ -18,8 +18,7 @@ class DiagramsController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => @diagram }
       format.json do
-        body = render_to_string(:locals => {:diagram => @diagram})
-        render :json => "{ \"html\" : \"#{to_json_value(body)}\"}", :callback => params[:callback]
+        render :json => @diagram, :callback => params[:callback]
       end
     end
   end
