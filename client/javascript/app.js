@@ -38,8 +38,19 @@ dojo.addOnLoad(
 	});
 	
 	
+	var receivedForm = function(data) {
+	  //$("#our-awesome-widget-target").html(data["html"]);
+		console.log("data:", data);
+	}
+
+	$.ajax({
+	  url: 'http://radiant-wind-119.heroku.com/diagrams/1.json',
+	  dataType: 'jsonp',
+	  success: receivedForm
+	});
+	
 	$('#btn-save').bind('click', function(e){
-		alert(Joint.dia.stringify(Joint.paper()));
+		//alert(Joint.dia.stringify(Joint.paper()));
 		e.preventDefault();	
 	});
 	
