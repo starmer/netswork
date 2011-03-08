@@ -62,7 +62,8 @@ dojo.addOnLoad(
 	NW.openModal = $('<div id="open-modal"><div class="row"><label for="diagram-id">Diagram id</label><input id="diagram-id" /></div><a class="minibutton" href="#" id="btn-open-open"><span>Open</span></a><a class="minibutton" href="#" id="btn-open-cancel"><span>Cancel</span></a></div>')
 				.dialog({
 					autoOpen: false,
-					title: 'Basic Dialog',
+					closeOnEscape: false,
+					title: 'Open a diagram',
 					modal: true
 				});
 				
