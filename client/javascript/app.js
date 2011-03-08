@@ -2,8 +2,8 @@ dojo.addOnLoad(
   function(){
 	
 	NW.objects = [];
-	//NW.baseURL = 'http://radiant-wind-119.heroku.com/';
-	NW.baseURL = 'http://localhost:3000/';
+	NW.baseURL = 'http://radiant-wind-119.heroku.com/';
+	//NW.baseURL = 'http://localhost:3000/';
 	
 	NW.registerJoints = function(){
 		var joints = Joint.dia.registeredJoints();
