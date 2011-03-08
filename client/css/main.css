@@ -44,6 +44,13 @@ a {
 	margin-right:10px;
 }
 
+.no-diagrams{
+	padding:40px;
+	text-align:center;
+	color:#666666;
+	font-style: italic;
+}
+
 /* Dragable objects */
 .obj{
 	width:75px;
@@ -62,32 +69,32 @@ a {
 	background:url(../images/cloud.png) no-repeat;
 }
 
-#obj-security{
+.security{
 	background:url(../images/wall-icon.png) no-repeat;
 }
 
-#obj-security div span{
+.security div span{
 	padding:3px;
 	background-color:white;
 }
 
-#obj-multi{
+.multi{
 	background:url(../images/multi-icon.png) no-repeat;
 }
 
-#obj-server{
+.server{
 	background:url(../images/server-icon.png) no-repeat;
 }
 
-#obj-multi-server{
+.multi-server{
 	background:url(../images/multi-server-icon.png) no-repeat;
 }
 
-#obj-line{
+.line{
 	background:url(../images/line.png) no-repeat;
 }
 
-#obj-circle{
+.circle{
 	background:url(../images/circle-icon.png) no-repeat;
 }
 
@@ -145,4 +152,9 @@ a {
 
 #btn-line:hover .icon {
     background-position: 0 -25px;
+}
+
+/* jquery ui override */
+.ui-accordion .ui-accordion-content{
+	padding:0;
 }

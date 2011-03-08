@@ -24,6 +24,9 @@ dojo.addOnLoad(
 		NW.registerJoints();
 	}
 	
+	$( "#accordion" ).accordion({autoHeight: false});
+	
+	
 	$(document).keypress(function(e) {
 	    if(NW.currentJointElement && e.which === 8){
 			if(NW.currentJointElement){
@@ -130,11 +133,14 @@ dojo.addOnLoad(
 	$("#obj-internet").draggable({
 		revert: true,
 		revertDuration: 0,
+		helper: function(){
+			return $('<div id="proxy" class="obj cloud"><div>Internet</div></div>');
+		},
+		appendTo: 'body',
 		stop: function(event, ui) {
 			var diagram = $('#diagram'),
-				obj = $("#obj-internet"),
-				newX = ui.position.left - diagram.offset().left + obj.offset().left,
-				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				newX = ui.position.left - diagram.offset().left,
+				newY = ui.position.top - diagram.offset().top,
 				networkObj = network.cloud.create({position: {x: newX, y: newY}, label: "Internet"});
 
 			NW.objects.push(networkObj);
@@ -146,11 +152,14 @@ dojo.addOnLoad(
 	$("#obj-vpn").draggable({
 		revert: true,
 		revertDuration: 0,
+		helper: function(){
+			return $('<div id="proxy" class="obj cloud"><div>VPN</div></div>');
+		},
+		appendTo: 'body',
 		stop: function(event, ui) {
 			var diagram = $('#diagram'),
-				obj = $("#obj-vpn"),
-				newX = ui.position.left - diagram.offset().left + obj.offset().left,
-				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				newX = ui.position.left - diagram.offset().left,
+				newY = ui.position.top - diagram.offset().top,
 				networkObj = network.cloud.create({position: {x: newX, y: newY}, label: "VPN"});
 
 			NW.objects.push(networkObj);
@@ -162,11 +171,14 @@ dojo.addOnLoad(
 	$("#obj-security").draggable({
 		revert: true,
 		revertDuration: 0,
+		helper: function(){
+			return $('<div id="proxy" class="obj security"><div><span>Security<span></div></div>');
+		},
+		appendTo: 'body',
 		stop: function(event, ui) {
 			var diagram = $('#diagram'),
-				obj = $("#obj-security"),
-				newX = ui.position.left - diagram.offset().left + obj.offset().left,
-				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				newX = ui.position.left - diagram.offset().left,
+				newY = ui.position.top - diagram.offset().top,
 				networkObj = network.security.create({position: {x: newX, y: newY}, label: "Security"});
 
 			NW.objects.push(networkObj);
@@ -178,11 +190,14 @@ dojo.addOnLoad(
 	$("#obj-multi").draggable({
 		revert: true,
 		revertDuration: 0,
+		helper: function(){
+			return $('<div id="proxy" class="obj multi"></div>');
+		},
+		appendTo: 'body',
 		stop: function(event, ui) {
 			var diagram = $('#diagram'),
-				obj = $("#obj-multi"),
-				newX = ui.position.left - diagram.offset().left + obj.offset().left,
-				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				newX = ui.position.left - diagram.offset().left,
+				newY = ui.position.top - diagram.offset().top,
 				networkObj = network.multi.create({position: {x: newX, y: newY}});
 
 			NW.objects.push(networkObj);
@@ -194,11 +209,14 @@ dojo.addOnLoad(
 	$("#obj-server").draggable({
 		revert: true,
 		revertDuration: 0,
+		helper: function(){
+			return $('<div id="proxy" class="obj server"></div>');
+		},
+		appendTo: 'body',
 		stop: function(event, ui) {
 			var diagram = $('#diagram'),
-				obj = $("#obj-server"),
-				newX = ui.position.left - diagram.offset().left + obj.offset().left,
-				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				newX = ui.position.left - diagram.offset().left,
+				newY = ui.position.top - diagram.offset().top,
 				networkObj = network.server.create({position: {x: newX, y: newY}});
 
 			NW.objects.push(networkObj);
@@ -210,11 +228,14 @@ dojo.addOnLoad(
 	$("#obj-multi-server").draggable({
 		revert: true,
 		revertDuration: 0,
+		helper: function(){
+			return $('<div id="proxy" class="obj multi-server"></div>');
+		},
+		appendTo: 'body',
 		stop: function(event, ui) {
 			var diagram = $('#diagram'),
-				obj = $("#obj-multi-server"),
-				newX = ui.position.left - diagram.offset().left + obj.offset().left,
-				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				newX = ui.position.left - diagram.offset().left,
+				newY = ui.position.top - diagram.offset().top,
 				networkObj = network.multiServer.create({position: {x: newX, y: newY}});
 
 			NW.objects.push(networkObj);
@@ -227,11 +248,14 @@ dojo.addOnLoad(
 	$("#obj-line").draggable({
 		revert: true,
 		revertDuration: 0,
+		helper: function(){
+			return $('<div id="proxy" class="obj line"></div>');
+		},
+		appendTo: 'body',
 		stop: function(event, ui) {
 			var diagram = $('#diagram'),
-				obj = $("#obj-line"),
-				newX = ui.position.left - diagram.offset().left + obj.offset().left + 15,
-				newY = ui.position.top - diagram.offset().top + obj.offset().top + 65;
+				newX = ui.position.left - diagram.offset().left + 20,
+				newY = ui.position.top - diagram.offset().top + 75;
 				newJoint = Joint({x: newX, y: newY}, {x: newX + 50, y: newY - 50}, NW.line).register(NW.objects);
 			
 			Joint.dia.registerJoint(newJoint);
@@ -241,11 +265,14 @@ dojo.addOnLoad(
 	$("#obj-circle").draggable({
 		revert: true,
 		revertDuration: 0,
+		helper: function(){
+			return $('<div id="proxy" class="obj circle"></div>');
+		},
+		appendTo: 'body',
 		stop: function(event, ui) {
 			var diagram = $('#diagram'),
-				obj = $("#obj-circle"),
-				newX = ui.position.left - diagram.offset().left + obj.offset().left + 35,
-				newY = ui.position.top - diagram.offset().top + obj.offset().top + 35,
+				newX = ui.position.left - diagram.offset().left + 45,
+				newY = ui.position.top - diagram.offset().top + 45,
 				networkObj = network.circle.create({position: {x: newX, y: newY}});
 
 			NW.objects.push(networkObj);
