@@ -24,7 +24,60 @@ dojo.addOnLoad(
 		NW.registerJoints();
 	}
 	
-	$( "#accordion" ).accordion({autoHeight: false});
+	NW.openDiagram = function(diagramId){
+		$.ajax({
+			url: NW.baseURL + 'diagrams/show/' + diagramId + '.json',
+			dataType: 'jsonp',
+			success: function(data){
+				console.log(data);
+				Joint.resetPaper();
+				NW.objects = [];
+				Joint.dia.parse(data.diagram.content);
+				// todo create a function to loop over all of the objects on the page and add them to NW.objects
+				NW.registerJoints();
+				NW.openModal.dialog('close');
+			}
+		});
+	}
+	
+	NW.diagramLoader = {
+		'your-diagrams': function(){
+			$('#your-diagrams-list').html('<div class="loading">Loading...<div>');
+			$.ajax({
+				url: NW.baseURL + 'diagrams.json',
+				dataType: 'jsonp',
+				success: function(data) {
+					if(data.length > 0){
+						var html = '<ul>';
+						for(var i = 0; i < data.length; i++){
+							html += '<li>';
+							html += '<a href="#" onclick="NW.openDiagram(' + data[i].diagram.id + ');return false;">' + data[i].diagram.title + '</a>';
+							html += '</li>';
+						}
+						html += '</ul>'
+						$('#your-diagrams-list').html(html);
+					}else{
+						$('#your-diagrams-list').html('<div class="loading">None<div>');
+					}
+				}
+			});
+		},
+		
+		'shared-diagrams': function(){
+			$('#shared-diagrams-list').html('<div class="loading">Share has not been implemented yet...<div>');
+			console.log("loading shared diagrams");
+		}
+		
+	}
+	
+	$('#accordion').accordion({
+		autoHeight: false,
+		changestart: function(event, ui) {
+			if(NW.diagramLoader[ui.newContent[0].id]){
+				NW.diagramLoader[ui.newContent[0].id]();
+			}
+		}
+	});
 	
 	
 	$(document).keypress(function(e) {
@@ -42,17 +95,38 @@ dojo.addOnLoad(
 		}
 	});
 	
+	NW.saveModal = $('<div id="save-modal" class="modal"><div class="row"><label for="diagram-id">Title</label><input id="diagram-title-input" /></div><a class="minibutton" href="#" id="btn-save-save"><span>Save</span></a><a class="minibutton" href="#" id="btn-save-cancel"><span>Cancel</span></a></div>')
+				.dialog({
+					autoOpen: false,
+					closeOnEscape: false,
+					title: 'Save Diagram',
+					modal: true
+				});
 	
 	
 	$('#btn-save').bind('click', function(e){
-		var diagram = Joint.dia.stringify(Joint.paper());
+		NW.saveModal.dialog('open');
+		e.preventDefault();	
+	});
+	
+	$('#btn-save-cancel').click(function(e) {
+		NW.saveModal.dialog('close');
+		e.preventDefault();
+	});
+	
+	$('#btn-save-save').bind('click', function(e){
+		var diagram = Joint.dia.stringify(Joint.paper()),
+			title = $('#diagram-title-input').val();
+			
 		console.log('start jsonp call');
+		
 		$.ajax({
 			url: NW.baseURL + 'diagrams/create.json',
 			dataType: 'jsonp',
-			data: {'diagram[title]':'this is a title','diagram[content]':diagram, 'diagram[cookie]':'this is the cookie that allows a user to see this diagram 123jf398j4f198j23f8'},
+			data: {'diagram[title]':title, 'diagram[content]':diagram, 'diagram[cookie]':'11111111111111'},
 			success: function(data) {
 				console.log(data);
+				NW.saveModal.dialog('close');
 				alert("saved with id: " + data.diagram.id);
 			}
 		});

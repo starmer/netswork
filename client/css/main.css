@@ -31,20 +31,20 @@ a {
 	height:590px;
 }
 
-#open-modal{
+.modal{
 	padding-top:40px;
 	text-align:center;
 }
 
-#open-modal .row{
-	margin-bottom:10px;
+.modal .row{
+	margin:10px 0;
 }
 
-#open-modal label{
+.modal label{
 	margin-right:10px;
 }
 
-.no-diagrams{
+.no-diagrams, .loading{
 	padding:40px;
 	text-align:center;
 	color:#666666;
