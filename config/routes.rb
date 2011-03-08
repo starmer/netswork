@@ -8,6 +8,7 @@ Netswork::Application.routes.draw do
   match 'diagrams/show/:id' => 'diagrams#show'
   match 'diagrams/create' => 'diagrams#create'
   match 'diagrams/update' => 'diagrams#udpate'
+  match 'diagrams' => 'diagrams#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

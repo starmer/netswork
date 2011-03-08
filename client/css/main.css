@@ -16,7 +16,7 @@ a {
 #palette {
 	position:absolute;
 	float:left;
-	width:80px;
+	width:200px;
 	height:580px;
 	border-right:0;
 	background-color:white;
@@ -48,6 +48,8 @@ a {
 .obj{
 	width:75px;
 	height:75px;
+	float:left;
+	margin:10px;
 }
 
 .obj div{

@@ -2,8 +2,8 @@ dojo.addOnLoad(
   function(){
 	
 	NW.objects = [];
-	NW.baseURL = 'http://radiant-wind-119.heroku.com/';
-	//NW.baseURL = 'http://localhost:3000/';
+	//NW.baseURL = 'http://radiant-wind-119.heroku.com/';
+	NW.baseURL = 'http://localhost:3000/';
 	
 	NW.registerJoints = function(){
 		var joints = Joint.dia.registeredJoints();
@@ -51,6 +51,22 @@ dojo.addOnLoad(
 			success: function(data) {
 				console.log(data);
 				alert("saved with id: " + data.diagram.id);
+			}
+		});
+		
+		console.log('end jsonp call.');
+		
+		e.preventDefault();	
+	});
+	
+	$('#btn-list').bind('click', function(e){
+		var diagram = Joint.dia.stringify(Joint.paper());
+		console.log('start jsonp call');
+		$.ajax({
+			url: NW.baseURL + 'diagrams.json',
+			dataType: 'jsonp',
+			success: function(data) {
+				console.log(data);
 			}
 		});
 		
@@ -115,9 +131,15 @@ dojo.addOnLoad(
 		revert: true,
 		revertDuration: 0,
 		stop: function(event, ui) {
-			var newX = ui.position.left - $('#diagram').offset().left;
-			var newY = ui.position.top - $('#diagram').offset().top + 30;
-			NW.createCloud("Internet", {x: newX, y: newY});
+			var diagram = $('#diagram'),
+				obj = $("#obj-internet"),
+				newX = ui.position.left - diagram.offset().left + obj.offset().left,
+				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				networkObj = network.cloud.create({position: {x: newX, y: newY}, label: "Internet"});
+
+			NW.objects.push(networkObj);
+
+			NW.registerJoints();
 		}
 	});
 	
@@ -125,9 +147,15 @@ dojo.addOnLoad(
 		revert: true,
 		revertDuration: 0,
 		stop: function(event, ui) {
-			var newX = ui.position.left - $('#diagram').offset().left;
-			var newY = ui.position.top - $('#diagram').offset().top + 100;
-			NW.createCloud("VPN", {x: newX, y: newY});
+			var diagram = $('#diagram'),
+				obj = $("#obj-vpn"),
+				newX = ui.position.left - diagram.offset().left + obj.offset().left,
+				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				networkObj = network.cloud.create({position: {x: newX, y: newY}, label: "VPN"});
+
+			NW.objects.push(networkObj);
+
+			NW.registerJoints();
 		}
 	});
 	
@@ -135,30 +163,29 @@ dojo.addOnLoad(
 		revert: true,
 		revertDuration: 0,
 		stop: function(event, ui) {
-			var newX = ui.position.left - $('#diagram').offset().left;
-			var newY = ui.position.top - $('#diagram').offset().top + 180;
-			var security = network.security.create({
-			  position: {x: newX, y: newY},
-			  label: "Security"
-			});
+			var diagram = $('#diagram'),
+				obj = $("#obj-security"),
+				newX = ui.position.left - diagram.offset().left + obj.offset().left,
+				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				networkObj = network.security.create({position: {x: newX, y: newY}, label: "Security"});
 
-			NW.objects.push(security);
+			NW.objects.push(networkObj);
 
 			NW.registerJoints();
 		}
 	});
-	
+
 	$("#obj-multi").draggable({
 		revert: true,
 		revertDuration: 0,
 		stop: function(event, ui) {
-			var newX = ui.position.left - $('#diagram').offset().left;
-			var newY = ui.position.top - $('#diagram').offset().top + 255;
-			var multi = network.multi.create({
-			  position: {x: newX, y: newY}
-			});
+			var diagram = $('#diagram'),
+				obj = $("#obj-multi"),
+				newX = ui.position.left - diagram.offset().left + obj.offset().left,
+				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				networkObj = network.multi.create({position: {x: newX, y: newY}});
 
-			NW.objects.push(multi);
+			NW.objects.push(networkObj);
 
 			NW.registerJoints();
 		}
@@ -168,13 +195,13 @@ dojo.addOnLoad(
 		revert: true,
 		revertDuration: 0,
 		stop: function(event, ui) {
-			var newX = ui.position.left - $('#diagram').offset().left;
-			var newY = ui.position.top - $('#diagram').offset().top + 340;
-			var server = network.server.create({
-			  position: {x: newX, y: newY}
-			});
+			var diagram = $('#diagram'),
+				obj = $("#obj-server"),
+				newX = ui.position.left - diagram.offset().left + obj.offset().left,
+				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				networkObj = network.server.create({position: {x: newX, y: newY}});
 
-			NW.objects.push(server);
+			NW.objects.push(networkObj);
 
 			NW.registerJoints();
 		}
@@ -184,13 +211,13 @@ dojo.addOnLoad(
 		revert: true,
 		revertDuration: 0,
 		stop: function(event, ui) {
-			var newX = ui.position.left - $('#diagram').offset().left;
-			var newY = ui.position.top - $('#diagram').offset().top + 425;
-			var multiServer = network.multiServer.create({
-			  position: {x: newX, y: newY}
-			});
+			var diagram = $('#diagram'),
+				obj = $("#obj-multi-server"),
+				newX = ui.position.left - diagram.offset().left + obj.offset().left,
+				newY = ui.position.top - diagram.offset().top + obj.offset().top,
+				networkObj = network.multiServer.create({position: {x: newX, y: newY}});
 
-			NW.objects.push(multiServer);
+			NW.objects.push(networkObj);
 
 			NW.registerJoints();
 		}
@@ -201,10 +228,12 @@ dojo.addOnLoad(
 		revert: true,
 		revertDuration: 0,
 		stop: function(event, ui) {
-			var newX = ui.position.left - $('#diagram').offset().left + 20;
-			var newY = ui.position.top - $('#diagram').offset().top + 545;
+			var diagram = $('#diagram'),
+				obj = $("#obj-line"),
+				newX = ui.position.left - diagram.offset().left + obj.offset().left + 15,
+				newY = ui.position.top - diagram.offset().top + obj.offset().top + 65;
+				newJoint = Joint({x: newX, y: newY}, {x: newX + 50, y: newY - 50}, NW.line).register(NW.objects);
 			
-			var newJoint = Joint({x: newX, y: newY}, {x: newX + 50, y: newY - 50}, NW.line).register(NW.objects);
 			Joint.dia.registerJoint(newJoint);
 		}
 	});
@@ -213,13 +242,13 @@ dojo.addOnLoad(
 		revert: true,
 		revertDuration: 0,
 		stop: function(event, ui) {
-			var newX = ui.position.left - $('#diagram').offset().left + 40;
-			var newY = ui.position.top - $('#diagram').offset().top + 610;
-			var circle = network.circle.create({
-			  position: {x: newX, y: newY}
-			});
+			var diagram = $('#diagram'),
+				obj = $("#obj-circle"),
+				newX = ui.position.left - diagram.offset().left + obj.offset().left + 35,
+				newY = ui.position.top - diagram.offset().top + obj.offset().top + 35,
+				networkObj = network.circle.create({position: {x: newX, y: newY}});
 
-			NW.objects.push(circle);
+			NW.objects.push(networkObj);
 
 			NW.registerJoints();
 		}
