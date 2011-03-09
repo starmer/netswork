@@ -31,8 +31,6 @@ dojo.addOnLoad(
 				Joint.resetPaper();
 				NW.objects = [];
 				Joint.dia.parse(data.diagram.content);
-				// todo create a function to loop over all of the objects on the page and add them to NW.objects
-				NW.registerJoints();
 			}
 		});
 	}
@@ -48,7 +46,8 @@ dojo.addOnLoad(
 						var html = '<ul>';
 						for(var i = 0; i < data.length; i++){
 							html += '<li>';
-							html += '<a href="#" onclick="NW.openDiagram(' + data[i].diagram.id + ');return false;">' + data[i].diagram.title + '</a>';
+							html += '<a href="#" onclick="NW.openDiagram(' + data[i].diagram.id + ');return false;">' 
+									+ data[i].diagram.title + '</a>';
 							html += '</li>';
 						}
 						html += '</ul>'
@@ -158,10 +157,6 @@ dojo.addOnLoad(
 				newX = ui.position.left - diagram.offset().left,
 				newY = ui.position.top - diagram.offset().top,
 				networkObj = network.cloud.create({position: {x: newX, y: newY}, label: "Internet"});
-
-			NW.objects.push(networkObj);
-
-			NW.registerJoints();
 		}
 	});
 	
