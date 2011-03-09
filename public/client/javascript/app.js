@@ -2,8 +2,6 @@ dojo.addOnLoad(
   function(){
 	
 	NW.objects = [];
-	NW.baseURL = 'http://radiant-wind-119.heroku.com/';
-	//NW.baseURL = 'http://localhost:3000/';
 	
 	NW.registerJoints = function(){
 		var joints = Joint.dia.registeredJoints();
@@ -26,8 +24,8 @@ dojo.addOnLoad(
 	
 	NW.openDiagram = function(diagramId){
 		$.ajax({
-			url: NW.baseURL + 'diagrams/show/' + diagramId + '.json',
-			dataType: 'jsonp',
+			url: '/diagrams/show/' + diagramId + '.json',
+			dataType: 'json',
 			success: function(data){
 				console.log(data);
 				Joint.resetPaper();
@@ -35,7 +33,6 @@ dojo.addOnLoad(
 				Joint.dia.parse(data.diagram.content);
 				// todo create a function to loop over all of the objects on the page and add them to NW.objects
 				NW.registerJoints();
-				NW.openModal.dialog('close');
 			}
 		});
 	}
@@ -44,8 +41,8 @@ dojo.addOnLoad(
 		'your-diagrams': function(){
 			$('#your-diagrams-list').html('<div class="loading">Loading...<div>');
 			$.ajax({
-				url: NW.baseURL + 'diagrams.json',
-				dataType: 'jsonp',
+				url: '/diagrams.json',
+				dataType: 'json',
 				success: function(data) {
 					if(data.length > 0){
 						var html = '<ul>';
@@ -72,6 +69,7 @@ dojo.addOnLoad(
 	
 	$('#accordion').accordion({
 		autoHeight: false,
+		active: 2,
 		changestart: function(event, ui) {
 			if(NW.diagramLoader[ui.newContent[0].id]){
 				NW.diagramLoader[ui.newContent[0].id]();
@@ -118,12 +116,11 @@ dojo.addOnLoad(
 		var diagram = Joint.dia.stringify(Joint.paper()),
 			title = $('#diagram-title-input').val();
 			
-		console.log('start jsonp call');
-		
 		$.ajax({
-			url: NW.baseURL + 'diagrams/create.json',
-			dataType: 'jsonp',
+			url: '/diagrams/create.json',
+			dataType: 'json',
 			data: {'diagram[title]':title, 'diagram[content]':diagram, 'diagram[cookie]':'11111111111111'},
+			type: 'POST',
 			success: function(data) {
 				console.log(data);
 				NW.saveModal.dialog('close');
@@ -131,70 +128,15 @@ dojo.addOnLoad(
 			}
 		});
 		
-		console.log('end jsonp call.');
-		
 		e.preventDefault();	
 	});
 	
-	$('#btn-list').bind('click', function(e){
-		var diagram = Joint.dia.stringify(Joint.paper());
-		console.log('start jsonp call');
-		$.ajax({
-			url: NW.baseURL + 'diagrams.json',
-			dataType: 'jsonp',
-			success: function(data) {
-				console.log(data);
-			}
-		});
-		
-		console.log('end jsonp call.');
-		
-		e.preventDefault();	
-	});
-	
-	NW.openModal = $('<div id="open-modal"><div class="row"><label for="diagram-id">Diagram id</label><input id="diagram-id" /></div><a class="minibutton" href="#" id="btn-open-open"><span>Open</span></a><a class="minibutton" href="#" id="btn-open-cancel"><span>Cancel</span></a></div>')
-				.dialog({
-					autoOpen: false,
-					closeOnEscape: false,
-					title: 'Open a diagram',
-					modal: true
-				});
-				
-	$('#diagram-id').keypress(function(e) {
+	$('#diagram-title-input').keypress(function(e) {
 		if(e.which === 13){
-			$('#btn-open-open').click();
+			$('#btn-save-save').click();
 		}
 	});
-	
-	$('#btn-open').click(function(e) {
-		NW.openModal.dialog('open');
-		e.preventDefault();
-	});
-	
-	$('#btn-open-cancel').click(function(e) {
-		NW.openModal.dialog('close');
-	});
-	
-	$('#btn-open-open').click(function(e) {
-		var diagramId = $('#diagram-id').val();
-		$.ajax({
-			url: NW.baseURL + 'diagrams/show/' + diagramId + '.json',
-			dataType: 'jsonp',
-			success: function(data){
-				console.log(data);
-				Joint.resetPaper();
-				NW.objects = [];
-				Joint.dia.parse(data.diagram.content);
-				// todo create a function to loop over all of the objects on the page and add them to NW.objects
-				NW.registerJoints();
-				NW.openModal.dialog('close');
-			}
-		});
-		
-		e.preventDefault();
-	});
 
-	
 	$('#btn-clear').bind('click', function(e){
 		var shouldClear = confirm("Clear the current diagram?");
 		if(shouldClear){

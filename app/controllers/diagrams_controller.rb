@@ -8,7 +8,7 @@ class DiagramsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @diagrams }
-      format.json { render :json => @diagrams, :callback => params[:callback] }
+      format.json { render :json => @diagrams }
     end
   end
 
@@ -20,7 +20,7 @@ class DiagramsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @diagram }
-      format.json { render :json => @diagram, :callback => params[:callback] }
+      format.json { render :json => @diagram }
     end
   end
 
@@ -56,7 +56,7 @@ class DiagramsController < ApplicationController
       else
         format.html { render :action => "new" }
         format.xml  { render :xml => @diagram.errors, :status => :unprocessable_entity }
-        format.json  { render :json => @diagram.errors, :status => :unprocessable_entity, :callback => params[:callback] }
+        format.json  { render :json => @diagram.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -75,7 +75,7 @@ class DiagramsController < ApplicationController
       else
         format.html { render :action => "edit" }
         format.xml  { render :xml => @diagram.errors, :status => :unprocessable_entity }
-        format.json  { render :json => @diagram.errors, :status => :unprocessable_entity, :callback => params[:callback] }
+        format.json  { render :json => @diagram.errors, :status => :unprocessable_entity }
       end
     end
   end
