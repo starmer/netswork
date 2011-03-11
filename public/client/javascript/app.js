@@ -2,7 +2,8 @@ dojo.addOnLoad(
   function(){
 		
 	NW.objects = [];
-	NW.policyEditMode = false;
+	NW.policyModalOpen = false;
+	
 	
 	NW.registerJoints = function(){
 		var joints = Joint.dia.registeredJoints();
@@ -57,6 +58,7 @@ dojo.addOnLoad(
 				NW.currentJointElement = jointElement;
 				NW.policiesModalView.init();
 				$('#policies-modal').dialog('open');
+				NW.policyModalOpen = true;
 			}
 		});
 	}
@@ -120,9 +122,9 @@ dojo.addOnLoad(
 		}
 	});
 	
-	
+	// Delete object feature
 	$(document).keypress(function(e) {
-	    if(NW.currentJointElement && e.which === 8){
+	    if(NW.currentJointElement && e.which === 8 && !NW.policyModalOpen){
 			if(NW.currentJointElement){
 				for(var i = 0; i < NW.objects.length; i++){
 					if(NW.objects[i] === NW.currentJointElement){
@@ -148,9 +150,10 @@ dojo.addOnLoad(
 			+ '<a class="minibutton" href="#" id="btn-policies-cancel"><span>Cancel</span></a>'
 			+ '</div>').dialog({
 							autoOpen: false,
-							closeOnEscape: false,
 							title: 'Policies',
-							modal: true
+							modal: true,
+							close: function(event, ui) {NW.policyModalOpen = false;},
+							open: function(event, ui) {NW.policyModalOpen = true;}
 						});
 						
 			var getKeyValueInputs = function(k, v){
