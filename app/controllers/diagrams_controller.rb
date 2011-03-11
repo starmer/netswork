@@ -14,7 +14,7 @@ class DiagramsController < ApplicationController
   end
   
   def shared
-    @diagrams = Diagram.where("cookie = ?", @client_uuid).where(:shared => true)
+    @diagrams = Diagram.where(:shared => true)
     puts @client_uuid
     respond_to do |format|
       format.html # index.html.erb
