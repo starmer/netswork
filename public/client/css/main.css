@@ -7,6 +7,9 @@ a {
   outline: none;
 }
 
+.clearfix:before, .clearfix:after { content: "\0020"; display: block; height: 0; overflow: hidden; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
 
 #toolbar{
 	padding:10px;
@@ -42,6 +45,19 @@ a {
 
 .modal label{
 	margin-right:10px;
+}
+
+.modal .header-key, .modal .header-value{
+	width:100px;
+	float:left;
+	font-weight:bold;
+	margin-left:10px;
+}
+
+.modal .input-key, .modal .input-value{
+	width:100px;
+	float:left;
+	margin-left:10px;
 }
 
 .no-diagrams, .loading{

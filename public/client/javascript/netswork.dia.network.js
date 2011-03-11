@@ -48,6 +48,14 @@ network.cloud = Element.extend({
 			NW.currentJointElement = jointElement;
 		});
 		
+		$(this.wrapper.node).bind('mousedown', function(e){
+			console.log("e.which: ", e.which);
+			if(e.which === 3){
+				NW.policiesModalView.init();
+				$('#policies-modal').dialog('open');
+			}
+		});
+		
 		NW.objects.push(this);
 		NW.registerJoints();
 			
