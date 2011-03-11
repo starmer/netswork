@@ -12,6 +12,7 @@ network.arrow = {
     attrs: {"stroke-dasharray": "none"}
 };
 
+
 /**
 var s1 = NW.dia.network.cloud.create({
   position: {x: 120, y: 70},
@@ -49,14 +50,7 @@ network.cloud = Element.extend({
 			NW.currentJointElement = jointElement;
 		});
 		
-		$(this.wrapper.node).bind('mousedown', function(e){
-			console.log("e.which: ", e.which);
-			if(e.which === 3){
-				NW.currentJointElement = jointElement;
-				NW.policiesModalView.init();
-				$('#policies-modal').dialog('open');
-			}
-		});
+		NW.bindPoliciesModal(this.wrapper.node, jointElement);
 		
 		NW.objects.push(this);
 		NW.registerJoints();
@@ -95,6 +89,8 @@ network.security = Element.extend({
 		this.wrapper.click(function(e){
 			NW.currentJointElement = jointElement;
 		});
+
+		NW.bindPoliciesModal(this.wrapper.node, jointElement);
 		
 		NW.objects.push(this);
 		NW.registerJoints();
@@ -132,6 +128,8 @@ network.multi = Element.extend({
 			NW.currentJointElement = jointElement;
 		});
 		
+		NW.bindPoliciesModal(this.wrapper.node, jointElement);
+		
 		NW.objects.push(this);
 		NW.registerJoints();	
 		
@@ -167,6 +165,8 @@ network.server = Element.extend({
 		this.wrapper.click(function(e){
 			NW.currentJointElement = jointElement;
 		});
+		
+		NW.bindPoliciesModal(this.wrapper.node, jointElement);
 		
 		NW.objects.push(this);
 		NW.registerJoints();
@@ -204,6 +204,8 @@ network.multiServer = Element.extend({
 			NW.currentJointElement = jointElement;
 		});
 		
+		NW.bindPoliciesModal(this.wrapper.node, jointElement);
+		
 		NW.objects.push(this);
 		NW.registerJoints();
 			
@@ -240,6 +242,8 @@ network.circle = Element.extend({
 		this.wrapper.click(function(e){
 			NW.currentJointElement = jointElement;
 		});
+		
+		NW.bindPoliciesModal(this.wrapper.node, jointElement);
 		
 		NW.objects.push(this);
 		NW.registerJoints();

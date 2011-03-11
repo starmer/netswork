@@ -28,7 +28,6 @@ dojo.addOnLoad(
 			url: '/diagrams/show/' + diagramId + '.json',
 			dataType: 'json',
 			success: function(data){
-				console.log(data);
 				Joint.resetPaper();
 				NW.objects = [];
 				Joint.dia.parse(data.diagram.content);
@@ -46,9 +45,18 @@ dojo.addOnLoad(
 			data: {'diagram[title]':title, 'diagram[content]':diagram, 'diagram[shared]': options.shared},
 			type: 'POST',
 			success: function(data) {
-				console.log(data);
 				NW.saveModal.dialog('close');
 				NW.shareModal.dialog('close');
+			}
+		});
+	}
+	
+	NW.bindPoliciesModal = function(domObj, jointElement){	
+		$(domObj).bind('mousedown', function(e){
+			if(e.which === 3){
+				NW.currentJointElement = jointElement;
+				NW.policiesModalView.init();
+				$('#policies-modal').dialog('open');
 			}
 		});
 	}
