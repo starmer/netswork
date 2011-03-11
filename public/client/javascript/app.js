@@ -77,7 +77,7 @@ dojo.addOnLoad(
 		},
 		
 		'shared-diagrams': function(){
-			$('#shared-diagrams-list').html('<div class="loading">Share has not been implemented yet...<div>');
+			$('#shared-diagrams-list').html('<div class="loading">Loading...<div>');
 			$.ajax({
 				url: '/diagrams/shared.json',
 				dataType: 'json',
