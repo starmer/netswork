@@ -136,26 +136,42 @@ dojo.addOnLoad(
 			+ '<div class="row clearfix">'
 			+ '<div class="header-key">Key</div><div class="header-value">Value</div>'
 			+ '</div>'
-			+ '<div class="row key-value-pairs clearfix">'
-			+ '<input class="input-key" /><input class="input-value" />'
-			+ '<a class="minibutton add-key-value-inputs" href="#"><span>+</span></a>'
-			+ '</div>'
-			+ '<a class="minibutton" href="#" id="btn-policies-save"><span>Save</span></a>'
+			+ '<a class="minibutton" href="#" id="btn-policies-save"><span>Done</span></a>'
 			+ '<a class="minibutton" href="#" id="btn-policies-cancel"><span>Cancel</span></a>'
 			+ '</div>').dialog({
 							autoOpen: false,
 							closeOnEscape: false,
-							title: 'Set Policies',
+							title: 'Policies',
 							modal: true
 						});
 						
+			var getKeyValueInputs = function(k, v){
+				return '<div class="row key-value-pairs clearfix">'
+				+ '<input class="input-key" value="' + (k || '') + '" />'
+				+ '<input class="input-value" value="' + (v || '') + '" />'
+				+ '<a class="minibutton add-key-value-inputs" href="#"><span>+</span></a>'
+				+ '</div>';
+			}
+						
+			var data = NW.currentJointElement.properties.data;
+			if(data && data.length > 0){
+				for(var i = 0; i < data.length; i++){
+					var dataKey, dataValue;
+					for (var x in data[i]){
+						dataKey = x;
+						dataValue = data[i][x];
+					}
+						
+					var row = getKeyValueInputs(dataKey, dataValue);
+						
+					$('#policies-modal').find('div.row:last').after(row);
+				}
+			}else{
+				$('#policies-modal').find('div.row:last').after(getKeyValueInputs());
+			}
+						
 			$('#policies-modal').delegate('.add-key-value-inputs', 'click', function(e){
-				$(this).parent('div.row').after(
-					'<div class="row key-value-pairs clearfix">'
-					+ '<input class="input-key" /><input class="input-value" />'
-					+ '<a class="minibutton add-key-value-inputs" href="#"><span>+</span></a>'
-					+ '</div>'
-				);
+				$(this).parent('div.row:last').after(getKeyValueInputs());
 			});
 			
 			$('#btn-policies-cancel').click(function(e) {
@@ -164,11 +180,19 @@ dojo.addOnLoad(
 			});
 
 			$('#btn-policies-save').bind('click', function(e){
+				var data = [];
 				$('#policies-modal .key-value-pairs').each(function(i,el){
-					console.log($(el).find('.input-key').val());
-					console.log($(el).find('.input-value').val());
+					var key = $(el).find('.input-key').val(),
+						value = $(el).find('.input-value').val(),
+						kvp = {};
+						
+					kvp[key + ''] = value;
+					data.push(kvp);
 				});
-				// todo add policies to the diagram
+				
+				NW.currentJointElement.properties.data = data;
+				
+				$('#policies-modal').dialog('close');
 				e.preventDefault();	
 			});
 

@@ -29,7 +29,7 @@ network.cloud = Element.extend({
     init: function(properties){
 		var x = properties.position.x || 0;
 		var y = properties.position.y || 0;
-	
+		
 		// options
 		var p = Joint.DeepSupplement(this.properties, properties, {
 	            position: point(0,0),
@@ -44,6 +44,7 @@ network.cloud = Element.extend({
 		this.setWrapper(this.paper.path(pathString).attr(p.attrs).translate(x,y));
 	
 		var jointElement = this;
+		
 		this.wrapper.click(function(e){
 			NW.currentJointElement = jointElement;
 		});
@@ -51,6 +52,7 @@ network.cloud = Element.extend({
 		$(this.wrapper.node).bind('mousedown', function(e){
 			console.log("e.which: ", e.which);
 			if(e.which === 3){
+				NW.currentJointElement = jointElement;
 				NW.policiesModalView.init();
 				$('#policies-modal').dialog('open');
 			}
