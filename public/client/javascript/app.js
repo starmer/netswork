@@ -35,6 +35,23 @@ dojo.addOnLoad(
 		});
 	}
 	
+	NW.saveDiagram = function(options){
+		var diagram = Joint.dia.stringify(Joint.paper()),
+			title = options.title;
+			
+		$.ajax({
+			url: '/diagrams/create.json',
+			dataType: 'json',
+			data: {'diagram[title]':title, 'diagram[content]':diagram, 'diagram[shared]': options.shared},
+			type: 'POST',
+			success: function(data) {
+				console.log(data);
+				NW.saveModal.dialog('close');
+				NW.shareModal.dialog('close');
+			}
+		});
+	}
+	
 	NW.diagramLoader = {
 		'your-diagrams': function(){
 			$('#your-diagrams-list').html('<div class="loading">Loading...<div>');
@@ -61,7 +78,25 @@ dojo.addOnLoad(
 		
 		'shared-diagrams': function(){
 			$('#shared-diagrams-list').html('<div class="loading">Share has not been implemented yet...<div>');
-			console.log("loading shared diagrams");
+			$.ajax({
+				url: '/diagrams/shared.json',
+				dataType: 'json',
+				success: function(data) {
+					if(data.length > 0){
+						var html = '<ul>';
+						for(var i = 0; i < data.length; i++){
+							html += '<li>';
+							html += '<a href="#" onclick="NW.openDiagram(' + data[i].diagram.id + ');return false;">' 
+									+ data[i].diagram.title + '</a>';
+							html += '</li>';
+						}
+						html += '</ul>'
+						$('#shared-diagrams-list').html(html);
+					}else{
+						$('#shared-diagrams-list').html('<div class="loading">None<div>');
+					}
+				}
+			});
 		}
 		
 	}
@@ -92,7 +127,9 @@ dojo.addOnLoad(
 		}
 	});
 	
-	NW.saveModal = $('<div id="save-modal" class="modal"><div class="row"><label for="diagram-id">Title</label><input id="diagram-title-input" /></div><a class="minibutton" href="#" id="btn-save-save"><span>Save</span></a><a class="minibutton" href="#" id="btn-save-cancel"><span>Cancel</span></a></div>')
+	// Save modal
+	
+	NW.saveModal = $('<div id="save-modal" class="modal"><div class="row"><label for="diagram-save-title-input">Title</label><input id="diagram-save-title-input" /></div><a class="minibutton" href="#" id="btn-save-save"><span>Save</span></a><a class="minibutton" href="#" id="btn-save-cancel"><span>Cancel</span></a></div>')
 				.dialog({
 					autoOpen: false,
 					closeOnEscape: false,
@@ -102,6 +139,7 @@ dojo.addOnLoad(
 	
 	
 	$('#btn-save').bind('click', function(e){
+		$('#diagram-save-title-input').val('');
 		NW.saveModal.dialog('open');
 		e.preventDefault();	
 	});
@@ -112,27 +150,45 @@ dojo.addOnLoad(
 	});
 	
 	$('#btn-save-save').bind('click', function(e){
-		var diagram = Joint.dia.stringify(Joint.paper()),
-			title = $('#diagram-title-input').val();
-			
-		$.ajax({
-			url: '/diagrams/create.json',
-			dataType: 'json',
-			data: {'diagram[title]':title, 'diagram[content]':diagram},
-			type: 'POST',
-			success: function(data) {
-				console.log(data);
-				NW.saveModal.dialog('close');
-				alert("saved with id: " + data.diagram.id);
-			}
-		});
-		
+		NW.saveDiagram({shared: false, title: $('#diagram-save-title-input').val()});
 		e.preventDefault();	
 	});
 	
-	$('#diagram-title-input').keypress(function(e) {
+	$('#diagram-save-title-input').keypress(function(e) {
 		if(e.which === 13){
 			$('#btn-save-save').click();
+		}
+	});
+	
+	// Share modal
+	NW.shareModal = $('<div id="share-modal" class="modal"><div class="row"><label for="diagram-share-title-input">Title</label><input id="diagram-share-title-input" /></div><a class="minibutton" href="#" id="btn-share-share"><span>Share</span></a><a class="minibutton" href="#" id="btn-share-cancel"><span>Cancel</span></a></div>')
+				.dialog({
+					autoOpen: false,
+					closeOnEscape: false,
+					title: 'Share Diagram',
+					modal: true
+				});
+	
+	
+	$('#btn-share').bind('click', function(e){
+		$('#diagram-share-title-input').val('');
+		NW.shareModal.dialog('open');
+		e.preventDefault();	
+	});
+	
+	$('#btn-share-cancel').click(function(e) {
+		NW.shareModal.dialog('close');
+		e.preventDefault();
+	});
+	
+	$('#btn-share-share').bind('click', function(e){
+		NW.saveDiagram({shared: true, title: $('#diagram-share-title-input').val()});
+		e.preventDefault();	
+	});
+	
+	$('#diagram-share-title-input').keypress(function(e) {
+		if(e.which === 13){
+			$('#btn-share-share').click();
 		}
 	});
 

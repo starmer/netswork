@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110305203319) do
+ActiveRecord::Schema.define(:version => 20110309044834) do
 
   create_table "diagrams", :force => true do |t|
     t.string   "title"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20110305203319) do
     t.string   "cookie"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "shared",     :default => false
   end
 
 end

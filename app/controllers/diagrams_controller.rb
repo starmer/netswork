@@ -4,7 +4,17 @@ class DiagramsController < ApplicationController
   # GET /diagrams.xml
   # GET /diagrams.json
   def index
-    @diagrams = Diagram.where("cookie = ?", @client_uuid)
+    @diagrams = Diagram.where("cookie = ?", @client_uuid).where(:shared => false)
+    puts @client_uuid
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render :xml => @diagrams }
+      format.json { render :json => @diagrams }
+    end
+  end
+  
+  def shared
+    @diagrams = Diagram.where("cookie = ?", @client_uuid).where(:shared => true)
     puts @client_uuid
     respond_to do |format|
       format.html # index.html.erb
