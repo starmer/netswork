@@ -1,6 +1,6 @@
 dojo.addOnLoad(
   function(){
-	
+		
 	NW.objects = [];
 	
 	NW.registerJoints = function(){
@@ -118,7 +118,7 @@ dojo.addOnLoad(
 		$.ajax({
 			url: '/diagrams/create.json',
 			dataType: 'json',
-			data: {'diagram[title]':title, 'diagram[content]':diagram, 'diagram[cookie]':'11111111111111'},
+			data: {'diagram[title]':title, 'diagram[content]':diagram},
 			type: 'POST',
 			success: function(data) {
 				console.log(data);

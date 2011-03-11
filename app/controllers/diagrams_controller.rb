@@ -1,10 +1,11 @@
 class DiagramsController < ApplicationController
+  before_filter :setup_client_uuid
   # GET /diagrams
   # GET /diagrams.xml
   # GET /diagrams.json
   def index
-    @diagrams = Diagram.all
-
+    @diagrams = Diagram.where("cookie = ?", @client_uuid)
+    puts @client_uuid
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @diagrams }
@@ -47,7 +48,8 @@ class DiagramsController < ApplicationController
   # POST /diagrams.json
   def create
     @diagram = Diagram.new(params[:diagram])
-    logger.info "@diagram.title: #{@diagram.title}"
+    @diagram.cookie = @client_uuid;
+    
     respond_to do |format|
       if @diagram.save
         format.html { redirect_to(@diagram, :notice => 'Diagram was successfully created.') }
@@ -91,6 +93,13 @@ class DiagramsController < ApplicationController
       format.html { redirect_to(diagrams_url) }
       format.xml  { head :ok }
       format.json  { head :ok }
+    end
+  end
+  
+  def setup_client_uuid
+    @client_uuid = cookies[:client_uuid]
+    if !@client_uuid
+      @client_uuid = cookies.permanent[:client_uuid] = rand(36**8).to_s(36);
     end
   end
 end
